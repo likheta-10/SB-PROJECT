@@ -1,0 +1,97 @@
+Epic 1: Environment Setup
+
+Description:
+
+The Environment Setup phase establishes the foundation for the Voice-Based Concept Understanding Assessment (VBCUA) system. This phase involves configuring the development environment, installing all required software, libraries, and dependencies, and organizing the project structure according to software development best practices. It also includes initializing the Streamlit framework, configuring the Google Gemini API, and preparing the project for further development. A properly configured environment ensures compatibility, maintainability, and smooth execution of all subsequent development activities.
+
+Story 1: Python Environment and Dependency Installation
+
+Description:
+
+This story focuses on installing and configuring the Python development environment required for the project. All necessary libraries, including Streamlit, Whisper, Librosa, Sentence-BERT, ReportLab, NumPy, Pandas, and other supporting packages, are installed and verified. The Google Gemini API credentials are also configured to enable AI-powered functionalities. Dependency management is maintained using a requirements file to ensure consistency across different development environments.
+
+Story 2: Project Structure Initialization
+
+Description:
+
+This story establishes the overall project directory structure to improve code organization and maintainability. Separate folders are created for source code, datasets, machine learning models, assets, generated reports, configuration files, and documentation. Version control is initialized using Git, and the repository is prepared for collaborative development by following standardized naming conventions and software engineering practices.
+
+Story 3: Streamlit Application Initialization
+
+Description:
+
+This story initializes the Streamlit web application by creating the main application file and configuring the application's layout and page settings. A basic user interface is implemented to verify successful execution of the application. Initial components such as the project title, sidebar navigation, and placeholders for future functionalities are developed to establish the application's framework.
+
+Epic 2: Core Engine Development
+
+Description:
+
+The Core Engine Development phase implements the primary functionalities of the VBCUA system. This includes converting speech into text, evaluating conceptual understanding through semantic similarity analysis, extracting audio features, calculating performance scores, and integrating artificial intelligence models for accurate assessment. The objective of this phase is to develop the intelligent backend that performs automated analysis and generates meaningful evaluation results.
+
+Story 1: Speech-to-Text Module Development
+
+Description:
+
+This story develops the speech recognition module using OpenAI Whisper. The module accepts uploaded audio files in multiple formats, processes speech recordings, and converts spoken responses into accurate text transcripts. Error handling mechanisms are implemented to manage unsupported formats, poor audio quality, and transcription failures, ensuring reliable performance under different input conditions.
+
+Story 2: Semantic Understanding and Similarity Engine Development
+
+Description:
+
+This story develops the semantic analysis engine using Sentence-BERT embeddings and Google Gemini AI. The generated transcript is compared with predefined reference concepts to evaluate conceptual understanding. Semantic similarity scores are calculated using cosine similarity, enabling the system to measure the user's understanding based on the meaning of the response rather than exact word matching.
+
+Story 3: Audio Feature Extraction and Scoring Engine Development
+
+Description:
+
+This story implements audio signal analysis using Librosa to extract important speech characteristics such as pitch, energy, speaking rate, pauses, articulation, and speech duration. These audio features are combined with semantic similarity scores to generate a comprehensive evaluation score. The scoring engine provides quantitative feedback regarding pronunciation, fluency, confidence, and conceptual understanding.
+
+Epic 3: UI Development
+
+Description:
+
+The User Interface Development phase focuses on creating an intuitive and interactive web application using Streamlit. The interface allows users to upload audio recordings, view transcription results, monitor semantic analysis, visualize performance metrics, and download evaluation reports. The UI is designed to provide a simple, user-friendly experience while presenting detailed analytical information effectively.
+
+Story 1: User Interface Design and Visualization
+
+Description:
+
+This story designs an attractive and responsive Streamlit interface that provides an efficient user experience. Interactive components such as audio upload widgets, progress indicators, score visualizations, charts, and analysis dashboards are implemented. The interface enables users to interact with the system effortlessly while presenting evaluation results in an organized and visually appealing format.
+
+Story 2: Input Handling and Session State Management
+
+Description:
+
+This story implements mechanisms to validate user inputs, manage uploaded audio files, preserve session data, and handle application states efficiently. Appropriate validation ensures that only supported audio formats are accepted, while session state management maintains user data and analysis results during navigation without requiring repeated processing.
+
+Story 3: Output Rendering and Report Generation
+
+Description:
+
+This story generates detailed evaluation reports containing speech transcripts, semantic similarity scores, extracted audio features, overall assessment scores, graphical visualizations, and personalized feedback. Reports are automatically generated in PDF format using ReportLab, allowing users to download and share their assessment results for future reference.
+
+Epic 4: Testing & Deployment
+
+Description:
+
+The Testing and Deployment phase ensures the overall quality, reliability, and readiness of the VBCUA system before production deployment. Comprehensive testing is performed to verify the correctness of all modules, optimize application performance, identify potential issues, and prepare complete deployment documentation. The goal is to deliver a stable, efficient, and production-ready application.
+
+Story 1: Functional Testing and Validation
+
+Description:
+
+This story validates all system functionalities, including audio upload, speech transcription, semantic similarity computation, audio feature extraction, report generation, and user interface operations. Test cases are executed using different audio samples to verify correctness, reliability, and expected behavior under various usage scenarios.
+
+Story 2: Performance Testing and Optimization
+
+Description:
+
+This story evaluates the application's performance by measuring processing speed, memory utilization, and overall system responsiveness. Performance bottlenecks are identified and optimized to ensure efficient execution of speech recognition, semantic analysis, and report generation, even when processing larger audio files.
+
+Story 3: Deployment Preparation and Final Review
+
+Description:
+
+This story prepares the application for deployment by verifying project documentation, dependency configurations, environment settings, and application stability. Final code reviews, testing reports, and deployment checklists are completed to ensure that the system is fully functional, maintainable, and ready for production or demonstration.
+
+These descriptions are suitable for directly pasting into GitHub Projects, GitHub Issues, or project management tools and provide a professional, detailed software engineering workflow.
