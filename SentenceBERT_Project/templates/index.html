@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sentence-BERT Concept Evaluation</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Sentence-BERT Concept Evaluation</h1>
+
+<form method="POST">
+
+<label><b>Reference Concept</b></label>
+
+<textarea
+name="reference"
+rows="6"
+required></textarea>
+
+<label><b>Student Explanation</b></label>
+
+<textarea
+name="student"
+rows="6"
+required></textarea>
+
+<br><br>
+
+<button type="submit">Evaluate</button>
+
+</form>
+
+{% if similarity is not none %}
+
+<h2>Results</h2>
+
+<p><b>Cosine Similarity :</b> {{ similarity }}</p>
+
+<p><b>Normalized Score :</b> {{ normalized }}%</p>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>
