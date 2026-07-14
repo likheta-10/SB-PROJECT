@@ -1,0 +1,96 @@
+"""
+Scoring Engine Module
+Calculates the evaluation score (0-100) and understanding classification based on:
+1. Semantic Similarity (Weight: up to 50 points)
+2. Filler Word Ratio (Weight: up to 20 points)
+3. Pause Ratio (Weight: up to 15 points)
+4. RMS Energy / Volume (Weight: up to 15 points)
+"""
+
+def evaluate_understanding(similarity, filler_ratio, audio_features):
+    """
+    Computes final conceptual and vocal scoring, and classifies the level of understanding.
+    
+    Parameters:
+        similarity (float): Cosine similarity score [0.0 - 1.0]
+        filler_ratio (float): Ratio of filler words to total words [0.0 - 1.0]
+        audio_features (dict): Dict of audio metrics containing 'pause_ratio' and 'rms_energy'
+        
+    Returns:
+        dict: Breakdown of individual category scores, overall final score, and classification.
+    """
+    # 1. Semantic Similarity Score (Max: 50 points)
+    # Logic:
+    # >0.7 = 50
+    # >0.4 = 30
+    # else = 10
+    if similarity > 0.7:
+        similarity_score = 50
+    elif similarity > 0.4:
+        similarity_score = 30
+    else:
+        similarity_score = 10
+        
+    # 2. Filler Word Ratio Score (Max: 20 points)
+    # Logic:
+    # <5% (<0.05) = 20
+    # otherwise = 10
+    if filler_ratio < 0.05:
+        filler_score = 20
+    else:
+        filler_score = 10
+        
+    # 3. Pause Ratio Score (Max: 15 points)
+    # Logic:
+    # <25% (<0.25) = 15
+    # otherwise = 5
+    pause_ratio = audio_features.get("pause_ratio", 0.0)
+    if pause_ratio < 0.25:
+        pause_score = 15
+    else:
+        pause_score = 5
+        
+    # 4. RMS Energy Score (Max: 15 points)
+    # Logic:
+    # >0.01 = 15
+    # otherwise = 5
+    rms_energy = audio_features.get("rms_energy", 0.0)
+    if rms_energy > 0.01:
+        rms_score = 15
+    else:
+        rms_score = 5
+        
+    # Compute Final Aggregated Score [0-100]
+    final_score = similarity_score + filler_score + pause_score + rms_score
+    
+    # 5. Understanding Classification
+    # Logic:
+    # 80-100: Strong Understanding
+    # 50-79: Moderate Understanding
+    # Below 50: Poor Understanding
+    if final_score >= 80:
+        classification = "Strong Understanding"
+        badge_color = "success"
+        explanation = "The student demonstrates an excellent grasp of the subject. Spoken vocabulary has high alignment with key concepts, with strong pacing, proper volume, and minimal disfluency markers."
+    elif final_score >= 50:
+        classification = "Moderate Understanding"
+        badge_color = "warning"
+        explanation = "The student shows a fair comprehension of the material. There is moderate concept overlap, but pacing, vocal hesitation (fillers), or long pause blocks indicate potential self-doubt or minor gaps."
+    else:
+        classification = "Poor Understanding"
+        badge_color = "danger"
+        explanation = "The student struggling to explain the concept accurately. The transcription shows low alignment with the reference definition, or the verbal delivery had substantial pauses and disfluencies."
+        
+    return {
+        "final_score": final_score,
+        "classification": classification,
+        "badge_color": badge_color,
+        "explanation": explanation,
+        "breakdown": {
+            "similarity_score": similarity_score,
+            "filler_score": filler_score,
+            "pause_score": pause_score,
+            "rms_score": rms_score
+        }
+    }
+stream_features = True # Flag for debug

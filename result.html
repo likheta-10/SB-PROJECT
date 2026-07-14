@@ -1,0 +1,61 @@
+"""
+Evaluation Pipeline Orchestrator
+Binds transcription, acoustic profiling, disfluency markers, semantic similarity,
+and scoring models together to evaluate concept explanation proficiency.
+"""
+
+import os
+from modules.speech_to_text import transcribe_audio
+from modules.semantic_similarity import compute_similarity
+from modules.audio_features import extract_audio_features
+from modules.filler_detector import detect_filler_words
+from modules.scoring import evaluate_understanding
+
+def analyze_concept_understanding(audio_path, reference_concept, whisper_model="base", sbert_model="all-MiniLM-L6-v2"):
+    """
+    Executes the multi-module evaluation pipeline for an audio voice explanation.
+    
+    Parameters:
+        audio_path (str): File path to the student's spoken audio wave/mp3.
+        reference_concept (str): Reference standard textbook concept.
+        whisper_model (str): Whisper speech-to-text model identifier.
+        sbert_model (str): Sentence-BERT model identifier.
+        
+    Returns:
+        dict: Compiled semantic, structural, acoustic, disfluency, and scoring outputs.
+    """
+    print(f"\n=======================================================", flush=True)
+    print(f"[Evaluator] Launching voice analysis pipeline...", flush=True)
+    print(f"[Evaluator] Audio File: {audio_path}", flush=True)
+    print(f"[Evaluator] Ref Concept: '{reference_concept[:60]}...'", flush=True)
+    print(f"=======================================================\n", flush=True)
+    
+    # Step 1: Transcribe the audio (Speech-to-Text)
+    student_explanation = transcribe_audio(audio_path, model_name=whisper_model)
+    
+    # Step 2: Extract audio/acoustic feature metrics
+    audio_features = extract_audio_features(audio_path, transcription=student_explanation)
+    
+    # Step 3: Parse disfluency / filler words
+    filler_results = detect_filler_words(student_explanation)
+    
+    # Step 4: Compute Semantic Overlap with reference concept
+    similarity_score = compute_similarity(student_explanation, reference_concept, model_name=sbert_model)
+    
+    # Step 5: Execute scoring engine rules
+    evaluation_results = evaluate_understanding(
+        similarity=similarity_score,
+        filler_ratio=filler_results["filler_ratio"],
+        audio_features=audio_features
+    )
+    
+    print(f"[Evaluator] Pipeline processing complete! Final Score: {evaluation_results['final_score']}/100 ({evaluation_results['classification']})", flush=True)
+    
+    return {
+        "transcription": student_explanation,
+        "similarity": similarity_score,
+        "similarity_percentage": round(similarity_score * 100, 2),
+        "audio_features": audio_features,
+        "filler_words": filler_results,
+        "evaluation": evaluation_results
+    }

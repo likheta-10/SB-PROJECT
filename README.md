@@ -1,35 +1,27 @@
-# SB-PROJECT
-# 🎤 Voice-Based Concept Understanding Analyser (VBCUA)
+"""
+Constants Configuration
+Declares globally referenced variables and static mappings.
+"""
 
-A modern, sleek, and intuitive **Streamlit** web application designed to analyze and evaluate concept understanding via voice input. Built with a futuristic glassmorphic UI, custom typography, and dynamic layouts.
+# Allowed extensions
+ALLOWED_EXTENSIONS = {'wav', 'mp3', 'm4a'}
 
----
+# Complete checklist of filler words/hesitation markers
+FILLER_WORDS = [
+    'um', 'uh', 'like', 'actually', 'basically', 
+    'you know', 'okay', 'so', 'hmm'
+]
 
-## 🚀 Features
+# Classification tiers
+CLASS_STRONG = "Strong Understanding"
+CLASS_MODERATE = "Moderate Understanding"
+CLASS_POOR = "Poor Understanding"
 
-* **🎙️ Voice Analytics:** Built to capture and analyze spoken concepts to evaluate comprehension.
-* **💎 Glassmorphic UI:** A beautifully customized interface featuring smooth blur transitions, custom gradient backgrounds, and micro-interactions.
-* **📱 Responsive & Clean Layout:** Features a fully customized sidebar, styled file upload boundaries, hidden default Streamlit headers/footers, and custom container cards.
-* **🎨 Highly Configurable:** Centralized application configuration (`config.py`) makes theme, branding, and asset adjustments incredibly simple.
-
----
-
-## 🛠️ Tech Stack
-
-* **Frontend Framework:** [Streamlit](https://streamlit.io/)
-* **Styling:** Custom CSS (Poppins Google Font, custom linear gradients, and interactive components)
-* **Language:** Python 3.8+
-
----
-
-## 📁 Project Structure
-
-```text
-├── app.py                # Main application entry point
-├── config.py             # Global constants and configuration variables
-├── components/
-│   └── navbar.py         # Navigation bar component
-├── pages/
-│   └── home.py           # Core landing page view
-└── styles/
-    └── main.css          # Deep UI overrides and glassmorphic stylings
+# Metric Descriptions for reporting
+DESCRIPTIONS = {
+    "similarity": "Measures vocabulary overlap and semantic correctness compared to the ideal textbook answer.",
+    "pause_ratio": "Assesses fluency. High silence suggests hesitation or memory recall delay.",
+    "rms_energy": "Corresponds to acoustic amplitude/volume. Low energy signals whispering or voice trembling.",
+    "speech_rate": "Speaking speed (Words Per Minute). Normal conversing rate is 110-150 WPM.",
+    "confidence_metric": "Combines signal amplitude and voice dynamics to index confidence."
+}
